@@ -1,33 +1,54 @@
-import { useState } from 'preact/hooks'
-import preactLogo from './assets/preact.svg'
-import viteLogo from '/vite.svg'
-import './app.css'
+import { useState } from "preact/hooks";
+import "./app.css";
 
 export function App() {
-  const [count, setCount] = useState(0)
+  const [name, setName] = useState("");
+  const [isEntered, setIsEntered] = useState(false);
+
+  const isRight =
+    name.toLowerCase().includes("afra") || name.toLowerCase().includes("afoo");
+
+  const handler = () => {
+    setIsEntered(true);
+  };
+
+  const reset = () => {
+    setName("");
+    setIsEntered(false);
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} class="logo" alt="Vite logo" />
-        </a>
-        <a href="https://preactjs.com" target="_blank">
-          <img src={preactLogo} class="logo preact" alt="Preact logo" />
-        </a>
-      </div>
-      <h1>Vite + Preact</h1>
-      <div class="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/app.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p class="read-the-docs">
-        Click on the Vite and Preact logos to learn more
-      </p>
+      <h1>Who is right?</h1>
+      {isEntered ? (
+        <>
+          {isRight ? (
+            <p>Of course, Afra is always right, ALWAYS! 😁</p>
+          ) : (
+            <p>Nope, I'm sorry, you are not right. 😒</p>
+          )}
+          <button type="button" onClick={reset}>
+            Try again
+          </button>
+        </>
+      ) : (
+        <>
+          <p>Enter your name below to find out if you are right or not.</p>
+          <div style={{ marginBottom: "1rem" }}>
+            <input
+              value={name}
+              onChange={(e) => {
+                console.log(e);
+                //@ts-ignore
+                setName(e.target.value);
+              }}
+            />
+          </div>
+          <button type="button" onClick={handler}>
+            Let's find out
+          </button>
+        </>
+      )}
     </>
-  )
+  );
 }
