@@ -36,6 +36,7 @@ export function App() {
           <p>Enter your name below to find out if you are right or not.</p>
           <div style={{ marginBottom: "1rem" }}>
             <input
+              role="input"
               value={name}
               onChange={(e) => {
                 console.log(e);
